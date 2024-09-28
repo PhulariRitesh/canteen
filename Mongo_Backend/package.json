@@ -1,0 +1,30 @@
+{
+  "name": "canteenmanagement",
+  "version": "1.0.0",
+  "description": "Backend for managing Canteen orders and payments and its stuff data",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PhulariRitesh/canteen.git"
+  },
+  "author": "Ritesh Prakashrao Phulari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PhulariRitesh/canteen/issues"
+  },
+  "homepage": "https://github.com/PhulariRitesh/canteen#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "mongoose": "^8.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
