@@ -2,12 +2,11 @@
   "name": "canteenmanagement",
   "version": "1.0.0",
   "description": "Backend for managing Canteen orders and payments and its stuff data",
-  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "npm run test",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +21,7 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
+    "mongodb": "^6.9.0",
     "mongoose": "^8.7.0"
   },
   "devDependencies": {
