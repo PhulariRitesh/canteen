@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Add these styles to your global CSS file or in a module */
+
+.quiz-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.custom-dotted {
+  border-style: dotted;
+  border-width: 2px;
+  border-color: green;
+  border-spacing: 5px; /* This property is for table borders, not for divs */
+}
+
+.gradient-border {
+  border: 3px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(to left, #4b1a02, #ff004c); /* Standard */
+}
+
+
+.gradient-border::placeholder{
+  color: white;
+}
+
+.content {
+  display: flex;
+  flex-grow: 1;
+}
+
+
+@media (min-width: 768px) {
+  .main-content {
+    margin-left: 700px; /* Adjust based on Sidebar width on medium devices */
+  }
+}
+
+.quiz-box-container {
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  height: 80vh;
+}
