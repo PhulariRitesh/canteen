@@ -1,9 +1,10 @@
 const express = require('express');
-
+const { jwtSign } = require('../middlewares/jwtauth');
 const router = express.Router();
-const { price } = require('../controllers/price.controller');
+const { calculatePrice } = require('../controllers/price.controller');
 
-router.get('/payment', price);
-router.post('/payment', price);
+router.use(jwtSign);
+router.get('/payment', calculatePrice);
+router.post('/payment', calculatePrice);
 
 module.exports = router;

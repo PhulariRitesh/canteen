@@ -1,6 +1,6 @@
-const menu = require('../models/menu.model');
+const menu = require('../models/food.model');
 
-//Function to fetch all menu items
+
 const getmenu = async (req, res) => {
     try {
         const menuitems = await menu.find();
@@ -10,7 +10,6 @@ const getmenu = async (req, res) => {
     }
 }
 
-//Function to add new menu item
 const addmenu = async (req, res) => {
     try {
         const newmenu = new menu(req.body);
@@ -21,7 +20,7 @@ const addmenu = async (req, res) => {
     }
 }
 
-//Function to update menu item
+
 const updatemenu = async (req, res) => {
     try {
         await menu.findByIdAndUpdate(req.params.id, req.body);
@@ -33,7 +32,7 @@ const updatemenu = async (req, res) => {
     }
 }
 
-//Function to delete menu item
+
 const deletemenu = async (req, res) => {
     try {
         await menu.findByIdAndDelete(req.params.id);

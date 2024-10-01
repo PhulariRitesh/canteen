@@ -10,8 +10,14 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+app.use('/register', require('./routes/register.route'));
+app.use('/login', require('./routes/login.route'));
+app.use('/menu', require('./routes/menu.route'));
+app.use('/order', require('./routes/order.route'));
+app.use('price', require('./routes/price.route'));
+
+app.use((req, res) => {
+    res.status(404).send('Resource not found');
 });
 
 module.exports = app;

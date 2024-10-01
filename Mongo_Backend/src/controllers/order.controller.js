@@ -1,7 +1,15 @@
 const order = require('../models/order.model');
-//function to place new order with cart items
+
+const expectedtime = require('../middlewares/expected_preparation');
+
+const validatecart = require('../middlewares/validatecart');
+
 const createOrder = async (req, res) => {
     try {
+        const isValid = await validatecart(req.body);
+        if (!isValid) {
+            return res.status(400).send('Invalid cart');
+        }
         const newOrder = new order(req.body);
         await newOrder.save();
         res.status(200).send(newOrder);
@@ -10,9 +18,13 @@ const createOrder = async (req, res) => {
     }
 }
 
-//Function to fetch all orders for customer
+
 const getuserOrders = async (req, res) => {
     try {
+        const validateCart = await validatecart(req.body);
+        if (!validateCart) {
+            return res.status(400).send('Invalid cart');
+        }
         const orders = await order.find({ customerId: req.params.id });
         res.status(200).send(orders);
     } catch (error) {
@@ -20,7 +32,7 @@ const getuserOrders = async (req, res) => {
     }
 }
 
-//Function to fetch all orders for admin
+
 const getadminOrders = async (req, res) => {
     try {
         const orders = await order.find();
@@ -31,13 +43,14 @@ const getadminOrders = async (req, res) => {
 }
 
 
-//Function toupdate order status for admin
 const updateOrderStatus = async (req, res) => {
     try {
-        await order.findByIdAndUpdate
+        const order = await order.findByIdAndUpdate
             (req.params.id, { status: req.body.status });
+            let expected = await expectedtime(req.body);
+
         await order.save();
-        res.status(200).send(order);
+        res.status(200).send({'order':order, 'expectedpreptime':expected});
     }
     catch (error) {
         res.status(400, error.message);

@@ -1,8 +1,11 @@
+const customer = require('../models/customer.model');
+
+const {jwtSign} = require('../middlewares/jwtauth');
+
 const customerLogin = async (req, res) => {
     try {
         const customer = await
-            customer.findOne({ email
-                : req.body.email });
+            customer.findOne({ email : req.body.email });
         if (!customer) {
             return res.status(400).send('Invalid email');
         }
@@ -15,4 +18,5 @@ const customerLogin = async (req, res) => {
         res.status(400).send(error.message);
     }
 }
+
 module.exports = { customerLogin };

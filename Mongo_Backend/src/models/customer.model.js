@@ -6,7 +6,8 @@ const customerSchema = new mongoose.Schema({
         type: String,
         required: true,
         min: [6,'Must be at least 6 characters,got {VALUE}'],
-        max: 255
+        max: 255,
+        index: true
     },
     email: {
         type: String,
