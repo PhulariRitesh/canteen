@@ -1,31 +1,33 @@
 const mongoose = require('mongoose');
 
 const foodSchema = new mongoose.Schema({
-        name: {
-            type: String,
-            required: true,
-            min: [6,'Must be at least 6 characters,got {VALUE}'],
-            max: 255
-        },
-        price: {
-            type: Number,
-            required: true,
-        },
-        category: {
-            type: String,
-            required: true,
-        },
-        description: {
-            type: String,
-            required: true,
-            max: 1024,
-        },
-        image: {
-            type: String,
-            required: true,
-        },
-        available: {
-            type: Boolean,
-            required: true,
-        },
-    }, { timestamps: true });
+    item: {
+        type: String,
+        required: true,
+    },
+    price: {
+        type: Number,
+        required: true,
+    },
+    image: {
+        type: String,
+        required: true,
+    },
+    expectedTime: {
+        type: String,
+        required: true,
+    },
+    category: {
+        type: String,
+        required: true,
+        enum: ['snacks', 'beverages', 'desserts', 'fastfood', 'roti', 'rice', 'breakfast'],
+    },
+    available: {
+        type: Boolean,
+        default: true,
+    },
+}, { timestamps: true });
+
+const Food = mongoose.model('Food', foodSchema);
+
+module.exports = Food;

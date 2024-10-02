@@ -1,14 +1,12 @@
 'use client';
 
-
-// import Login from "@/components/Login/Login";
-
+import Home_Page from "../../../components/home";
 
 export default function Home() {
 
   return (
     <div className="bg-gray-700">
-     {/* <Login /> */}
+     <Home_Page />
 
     </div>
   );

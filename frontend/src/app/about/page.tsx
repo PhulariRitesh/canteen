@@ -1,14 +1,13 @@
 'use client';
 
-
-// import Login from "@/components/Login/Login";
+import About from "../../../components/About";
 
 
 export default function Home() {
 
   return (
     <div className="bg-gray-700">
-     {/* <Login /> */}
+     <About />
 
     </div>
   );

@@ -1,13 +1,19 @@
 const express = require('express');
-const { jwtSign } = require('../middlewares/jwtauth');
+// const { jwtSign } = require('../middlewares/jwtauth');
 
 const router = express.Router();
-const { getmenu, addmenu, updatemenu, deletemenu } = require('../controllers/menu.controller');
+const { getmenu, addmenu,addmenuData, updatemenu, deletemenu } = require('../controllers/menu.controller');
 
-router.use(jwtSign);
-router.route('/menu').get(getmenu).post(addmenu);
-router.put('/menu:id', updatemenu);
-router.delete('/menu:id', deletemenu);
+// router.use(jwtSign);
+router.route('/')
+    .get(getmenu)
+    .post(addmenuData);
+
+// router.route('/api').post(addmenuData);
+
+router.route('/:id')
+    .put(updatemenu)
+    .delete(deletemenu);
 
 module.exports = router;
 

@@ -10,6 +10,7 @@ const createOrder = async (req, res) => {
         if (!isValid) {
             return res.status(400).send('Invalid cart');
         }
+        console.log(req.body);
         const newOrder = new order(req.body);
         await newOrder.save();
         res.status(200).send(newOrder);

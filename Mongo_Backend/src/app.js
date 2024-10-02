@@ -13,11 +13,12 @@ app.use(express.static('public'));
 app.use('/register', require('./routes/register.route'));
 app.use('/login', require('./routes/login.route'));
 app.use('/menu', require('./routes/menu.route'));
+
 app.use('/order', require('./routes/order.route'));
 app.use('price', require('./routes/price.route'));
 
-app.use((req, res) => {
-    res.status(404).send('Resource not found');
+app.get('/', (req, res) => {
+    res.send('Hello World');
 });
 
 module.exports = app;
