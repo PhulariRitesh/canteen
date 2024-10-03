@@ -4,7 +4,7 @@ const getmenu = async (req, res) => {
     try {
         const menuitems = await menu.find();
         res.status(200).send(menuitems); // Send only menu items
-        console.log("Menu items fetched");
+        // console.log("Menu items fetched");
     } catch (error) {
         res.status(400).send(error.message);
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import MenuSection from './menu';
+// import MenuSection from './menu';
 
 const Footer = () => {
     return (

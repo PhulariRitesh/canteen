@@ -34,6 +34,9 @@ body {
 }
 
 /* Add these styles to your global CSS file or in a module */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
 
 .quiz-container {
   display: flex;

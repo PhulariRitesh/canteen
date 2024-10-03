@@ -3,10 +3,10 @@ import Navbar_3 from "./navbar";
 
 const About = () => {
     return (
-        <div>
+        <div className="h-screen">
             <Navbar_3 />
-        <h1 className="text-4xl font-bold text-center mt-10">About Us</h1>
-        <p className="text-lg font-bold text-center mt-5">
+        <h1 className="text-4xl font-bold text-center mt-40">About Us</h1>
+        <p className="text-lg font-bold text-center m-20">
             Moms Canteen is a place where you can order your favourite food from the
             menu and get it delivered to your doorstep. We have a wide range of food
             items to choose from. We aim to provide the best quality food to our
