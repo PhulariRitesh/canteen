@@ -5,175 +5,108 @@ import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from 'next/router';
 
-function Register_form({ categories, sectors }) {
+function Registerform() {
   const { register, handleSubmit, control, formState } = useForm();
   const { errors } = formState;
   const router = useRouter();
 
   const handleFormSubmit = async (data) => {
+    console.log(data);
     try {
-      console.log(data);
-
-      if (data.pocAltEmail === "") delete data.pocAltEmail;
-      if (data.pocAltPhone === "") delete data.pocAltPhone;
-
-      const requestOptions = {
+      const response = await fetch('http://localhost:8000/register', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      };
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
 
-      console.log(requestOptions.body);
-      const response = await fetch('/recruiter/apply', requestOptions);
-      const responseData = await response.json();
-
-      console.log(responseData);
-
-      if (responseData.success === false) {
-        toast.error(responseData.message, {
-          position: toast.POSITION.BOTTOM_CENTER,
-          theme: 'colored'
-        });
-      } else {
-        toast.success(responseData.message, {
-          position: toast.POSITION.BOTTOM_CENTER,
-          theme: 'colored'
-        });
-
-        router.push('/thankyou');
+      if (!response.ok) {
+        const errorText = await response.text(); // Get the error response text
+        throw new Error(`Network response was not ok: ${errorText}`);
       }
+
+      const responseData = await response.json();
+      console.log(responseData);
+      toast.success('Registration successful');
+      router.push('/login');
     } catch (error) {
-      console.log("Error is : ", error);
+      console.error('There was a problem with your fetch operation:', error);
+      toast.error('Registration failed');
     }
   };
+  
 
   return (
     <div className="container mx-auto px-4">
       <form onSubmit={handleSubmit(handleFormSubmit)} noValidate className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700">Company's Name</label>
+          <label className="block text-sm font-medium text-gray-700">Name</label>
           <input
             type="text"
             className={`mt-1 block w-full p-2 border rounded-md ${errors.companyName ? 'border-red-500' : 'border-gray-300'}`}
-            placeholder="Company's Name"
-            {...register("companyName", { required: "Company's Name is required" })}
+            placeholder="Name"
+            {...register("Name", { required: "Name is required" })}
           />
-          {errors.companyName && <p className="text-red-500 text-sm mt-1">{errors.companyName.message}</p>}
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Company's Website</label>
+          <label className="block text-sm font-medium text-gray-700">Email</label>
           <input
             type="text"
             className={`mt-1 block w-full p-2 border rounded-md ${errors.website ? 'border-red-500' : 'border-gray-300'}`}
-            placeholder="Company's Website"
-            {...register("website", { required: "Company's Website is required" })}
+            placeholder="Email"
           />
-          {errors.website && <p className="text-red-500 text-sm mt-1">{errors.website.message}</p>}
         </div>
-
+        <div className="flex justify-between">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Phone</label>
+            <input
+              type="text"
+              className={`mt-1 block w-full p-2 border rounded-md ${errors.website ? 'border-red-500' : 'border-gray-300'}`}
+              placeholder="Phone"
+            />
+            </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Roll Number</label>
+            <input
+              type="text"
+              className={`mt-1 block w-full p-2 border rounded-md ${errors.website ? 'border-red-500' : 'border-gray-300'}`}
+              placeholder="Phone"
+            />
+            </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Room Number</label>
+            <input
+              type="text"
+              className={`mt-1 block w-full p-2 border rounded-md ${errors.website ? 'border-red-500' : 'border-gray-300'}`}
+              placeholder="Phone"
+            />
+            </div>
+          </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Company's Description</label>
-          <textarea
-            rows="4"
-            className={`mt-1 block w-full p-2 border rounded-md ${errors.about ? 'border-red-500' : 'border-gray-300'}`}
-            placeholder="Company's Description"
-            {...register("about", { required: "Company's Description is required" })}
-          />
-          {errors.about && <p className="text-red-500 text-sm mt-1">{errors.about.message}</p>}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Company's POC Name</label>
+          <label className="block text-sm font-medium text-gray-700">Password</label>
           <input
-            type="text"
-            className={`mt-1 block w-full p-2 border rounded-md ${errors.pocName ? 'border-red-500' : 'border-gray-300'}`}
-            placeholder="POC Name"
-            {...register("pocName", { required: "Company's POC Name is required" })}
+            type="password"
+            className={`mt-1 block w-full p-2 border rounded-md ${errors.website ? 'border-red-500' : 'border-gray-300'}`}
+            placeholder="Password"
           />
-          {errors.pocName && <p className="text-red-500 text-sm mt-1">{errors.pocName.message}</p>}
         </div>
-
         <div>
-          <label className="block text-sm font-medium text-gray-700">Company's POC Email</label>
+          <label className="block text-sm font-medium text-gray-700">Confirm Password</label>
           <input
-            type="email"
-            className={`mt-1 block w-full p-2 border rounded-md ${errors.pocEmail ? 'border-red-500' : 'border-gray-300'}`}
-            placeholder="POC Email"
-            {...register("pocEmail", { required: "POC Email is required" })}
-          />
-          {errors.pocEmail && <p className="text-red-500 text-sm mt-1">{errors.pocEmail.message}</p>}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Alternate Email</label>
-          <input
-            type="email"
-            className="mt-1 block w-full p-2 border rounded-md border-gray-300"
-            placeholder="Alternate Email"
-            {...register("pocAltEmail")}
+            type="password"
+            className={`mt-1 block w-full p-2 border rounded-md ${errors.website ? 'border-red-500' : 'border-gray-300'}`}
+            placeholder="Confirm Password"
           />
         </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Category</label>
-          <select
-            className={`mt-1 block w-full p-2 border rounded-md ${errors.category ? 'border-red-500' : 'border-gray-300'}`}
-            {...register("category", { required: "Please select one Category" })}
-          >
-            {categories.map((category, index) => (
-              <option key={index} value={category}>{category}</option>
-            ))}
-          </select>
-          {errors.category && <p className="text-red-500 text-sm mt-1">{errors.category.message}</p>}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Sector</label>
-          <select
-            className={`mt-1 block w-full p-2 border rounded-md ${errors.sector ? 'border-red-500' : 'border-gray-300'}`}
-            {...register("sector", { required: "Please select one sector" })}
-          >
-            {sectors.map((sector, index) => (
-              <option key={index} value={sector}>{sector}</option>
-            ))}
-          </select>
-          {errors.sector && <p className="text-red-500 text-sm mt-1">{errors.sector.message}</p>}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Company's POC Contact Number</label>
-          <input
-            type="text"
-            className={`mt-1 block w-full p-2 border rounded-md ${errors.pocPhone ? 'border-red-500' : 'border-gray-300'}`}
-            placeholder="POC Contact Number"
-            {...register("pocPhone", { required: "POC Contact Number is required" })}
-          />
-          {errors.pocPhone && <p className="text-red-500 text-sm mt-1">{errors.pocPhone.message}</p>}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Alternate Phone Number</label>
-          <input
-            type="text"
-            className="mt-1 block w-full p-2 border rounded-md border-gray-300"
-            placeholder="Alternate Phone Number"
-            {...register("pocAltPhone")}
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
-        >
+        <button  type="submit"  className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
           SIGN UP
         </button>
-
         <ToastContainer />
       </form>
-      {/* <DevTool control={control} /> */}
     </div>
   );
 }
 
-export default Register_form;
+export default Registerform;

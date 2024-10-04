@@ -1,13 +1,14 @@
 'use client';
 
-import Register_form from "../../../components/register";
+import Registerform from "../../../components/register";
 
 export default function Home() {
 
   return (
     <div className="bg-gray-700">
-        <Register_form />
-
+      <div className="flex justify-center items-center h-screen">
+        <Registerform/>
+      </div>
     </div>
   );
 }
